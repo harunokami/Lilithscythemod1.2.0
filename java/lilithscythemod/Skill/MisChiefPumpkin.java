@@ -9,7 +9,7 @@ public class MisChiefPumpkin extends Skill{
 	private static final int duration = 20;
 	private static final int powerLevel = 20;
 	@Override
-	public int getCoolTime(){
+	public float getCoolTime(){
 		return 8;
 	}
 	@Override

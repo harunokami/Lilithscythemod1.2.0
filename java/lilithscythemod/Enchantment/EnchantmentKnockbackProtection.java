@@ -7,6 +7,7 @@ public class EnchantmentKnockbackProtection extends Enchantment{
 
 	public EnchantmentKnockbackProtection(int id, int weight) {
 		super(id, weight,EnumEnchantmentType.armor);
+		this.setName("KnockbackProtection");
 	}
 	public int getMaxLevel()
 	{

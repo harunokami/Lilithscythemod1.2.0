@@ -9,6 +9,7 @@ import lilithscythemod.Potion.PotionEffect.Percentagedamage;
 import lilithscythemod.Potion.PotionEffect.PotionMischiefPumpkin;
 import lilithscythemod.Potion.PotionEffect.PotionMoonOfChain;
 import lilithscythemod.Potion.PotionEffect.PotionSuitBullet;
+import lilithscythemod.Skill.CheshireBullet;
 import lilithscythemod.Skill.MisChiefPumpkin;
 import lilithscythemod.Skill.SkillManager;
 import lilithscythemod.Skill.SuitBullet;
@@ -43,6 +44,7 @@ public class CommonProxy
 		 SkillManager.registerSkill(ModCore.MODID, new TestSkill());
 		 SkillManager.registerSkill(ModCore.MODID, new MisChiefPumpkin());
 		 SkillManager.registerSkill(ModCore.MODID, new SuitBullet());
+		 SkillManager.registerSkill(ModCore.MODID, new CheshireBullet());
 	}
 	//Lilithポーションの登録
 	public void registerLilithPotions(){

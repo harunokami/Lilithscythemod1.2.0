@@ -1,7 +1,6 @@
 package lilithscythemod.Weapons;
 
 import lilithscythemod.EffectSoundPlay;
-import lilithscythemod.ModCore;
 import lilithscythemod.Entity.EntityBloodCross;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
@@ -22,14 +21,21 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ItemDarkNightSword  extends LilithscytheWeapons
 {
 	float damage;
+    //初期設定
+	public ItemDarkNightSword(net.minecraft.item.Item.ToolMaterial par1) {
+		super(par1);
+        setTextureName("lilithscythemod:DarkNightSword");
+		damage = par1.getDamageVsEntity();
+		this.setMaxDamage(-1);//壊れない
+	}
 	@Override
 	public Multimap getItemAttributeModifiers()
     {
         Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), 
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
                         new AttributeModifier(field_111210_e, "Weapon modifier", (double)damage, 0));
         return multimap;
-    }	
+    }
 	//アイコン
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -44,13 +50,13 @@ public class ItemDarkNightSword  extends LilithscytheWeapons
 	            itemStack.addEnchantment(Enchantment.sharpness, 100);
 	            itemStack.addEnchantment(Enchantment.featherFalling, 10);
 	            itemStack.addEnchantment(Enchantment.respiration, 3);
-	          
+
 		 }
 	    }
 	//右クリックを離したときの処理
 	  public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4)
 	    {
-		  
+
 		    //par4は右クリックの押下時間。
 		    int j = this.getMaxItemUseDuration(par1ItemStack) - par4;
             //右クリックを押した時間計算
@@ -68,9 +74,9 @@ public class ItemDarkNightSword  extends LilithscytheWeapons
 		    {
 		        f = 1.0F;
 		    }
-		    EntityBloodCross bullet = new EntityBloodCross(par2World, par3EntityPlayer, 0.5F, 0.3F, 0, 0, 0);		
+		    EntityBloodCross bullet = new EntityBloodCross(par2World, par3EntityPlayer, 0.5F, 0.3F, 0, 0, 0);
 		    if (!par2World.isRemote)
-		    {	
+		    {
 		      par2World.spawnEntityInWorld(bullet);
 		      par2World.playSoundAtEntity(par3EntityPlayer, EffectSoundPlay.BloodCross, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 		    }
@@ -95,14 +101,5 @@ public class ItemDarkNightSword  extends LilithscytheWeapons
 	    	par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
 	        return par1ItemStack;
 	    }
-    //初期設定
-	public ItemDarkNightSword(net.minecraft.item.Item.ToolMaterial par1) {
-		super(par1);
-		setUnlocalizedName("DarkNightSword")
-        .setTextureName("lilithscythemod:DarkNightSword")
-        .setCreativeTab(ModCore.LilithscytheTab);
-		damage = par1.getDamageVsEntity();
-		this.setMaxDamage(-1);//壊れない
-	}
 
 }

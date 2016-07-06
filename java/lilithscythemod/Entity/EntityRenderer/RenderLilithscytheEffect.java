@@ -118,11 +118,11 @@ public class RenderLilithscytheEffect {
 			tessellator.startDrawingQuads();
 
 	        for(int Size=0;Size<ModelSolid.Cylinder.length-1;Size++){
-	        	/*tessellator.setNormal(0.0F, 1.0F, 0.0F);
-	        	tessellator.addVertexWithUV(sp[Size+1][0]*r,height,sp[Size+1][1]*r, minU, maxV);
-	        	tessellator.addVertexWithUV(sp[Size][0]*r,height,sp[Size][1]*r, maxU, maxV);
-	        	tessellator.addVertexWithUV(sp[Size][0]*r,0.0D,sp[Size][1]*r,  maxU, minV);
-	        	tessellator.addVertexWithUV(sp[Size+1][0]*r,0.0D,sp[Size+1][1]*r, minU, minV);*/
+	        	tessellator.setNormal(0.0F, 1.0F, 0.0F);
+	        	tessellator.addVertexWithUV(sp[Size+1][0]*r,height,sp[Size+1][1]*r, minU, minV);
+	        	tessellator.addVertexWithUV(sp[Size][0]*r,height,sp[Size][1]*r, maxU, minV);
+	        	tessellator.addVertexWithUV(sp[Size][0]*r,0.0D,sp[Size][1]*r,  maxU, maxV);
+	        	tessellator.addVertexWithUV(sp[Size+1][0]*r,0.0D,sp[Size+1][1]*r, minU, maxV);
 	        	
 	        	tessellator.setNormal(0.0F, 1.0F, 0.0F);
 	        	tessellator.addVertexWithUV(sp[Size+1][0]*r,0.0D,sp[Size+1][1]*r, minU, maxV);

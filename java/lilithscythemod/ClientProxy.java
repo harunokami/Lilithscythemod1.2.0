@@ -11,6 +11,7 @@ import lilithscythemod.Entity.EntityLoveHeart;
 import lilithscythemod.Entity.EntityEffect.EntityMagicCircle;
 import lilithscythemod.Entity.EntityModel.BloodCrossModel;
 import lilithscythemod.Entity.EntityModel.LoveHeartModel;
+import lilithscythemod.ItemsRenderer.AliceCanonRenderer;
 import lilithscythemod.ItemsRenderer.ArtemisBookRenderer;
 import lilithscythemod.ItemsRenderer.LilithscytheRenderer;
 import lilithscythemod.Weapons.LilithscytheWeapons;
@@ -69,11 +70,13 @@ public class ClientProxy extends CommonProxy{
 		ClientRegistry.registerKeyBinding(weaponActionKey);
 		MinecraftForgeClient.registerItemRenderer(ItemRegistry.Lilithscythe,new LilithscytheRenderer());
 		MinecraftForgeClient.registerItemRenderer(ItemRegistry.ArtemisBook,new ArtemisBookRenderer());
+		MinecraftForgeClient.registerItemRenderer(ItemRegistry.AliceCanon,new AliceCanonRenderer());
 		RenderingRegistry.registerEntityRenderingHandler(EntityLoveHeart.class, new lilithscythemod.Entity.EntityRenderer.EntityLoveHeartRenderer(new LoveHeartModel()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDreamyNight.class, new lilithscythemod.Entity.EntityRenderer.EntityDreamyNightRenderer(new LoveHeartModel()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityAcidBreak.class,new lilithscythemod.Entity.EntityRenderer.EntityAcidBreakRenderer(new BloodCrossModel()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityBloodCross.class,new lilithscythemod.Entity.EntityRenderer.EntityBloodCrossRenderer(new BloodCrossModel()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMagicCircle.class ,new lilithscythemod.Entity.EntityEffectRenderer.LilithMagicCircleRenderer());
+
 	}
 
 

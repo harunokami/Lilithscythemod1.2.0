@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 public class TestSkill extends Skill{
 
 		@Override
-		public int getCoolTime(){
+		public float getCoolTime(){
 			return 5;
 		}
 		@Override

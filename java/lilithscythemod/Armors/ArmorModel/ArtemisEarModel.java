@@ -9,7 +9,7 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class ArtemisEarModel extends ModelBiped
 {
-	
+
 	private static Minecraft mc = FMLClientHandler.instance().getClient();
 	private ResourceLocation tex =new ResourceLocation("lilithscythemod:textures/items/armor/ArtemisEar.png");
 	  //fields
@@ -33,8 +33,8 @@ public class ArtemisEarModel extends ModelBiped
   {
 	    textureWidth = 64;
 	    textureHeight = 64;
-	  
-	    
+
+
 	      RightEar1 = new ModelRenderer(this, 0, 0);
 	      RightEar1.addBox(-0.5F, -14F, 0F, 3, 7, 1);
 	      RightEar1.setRotationPoint(0F, 0F, 0F);
@@ -145,18 +145,16 @@ public class ArtemisEarModel extends ModelBiped
 	      this.Piece1.addChild(Accessory6);
 	      this.Piece1.addChild(Accessory7);
 	      this.bipedHead.addChild(Piece1);
-    
+
   }
-  
+
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-  {     
+  {
 	   mc.renderEngine.bindTexture(tex);
 	   this.setRotationAngles(f, f1, f2, f3, f4, f5,entity);
-		this.Piece1.render(f5);	
-
-
+		this.Piece1.render(f5);
   }
-  
+
   private void setRotation(ModelRenderer model, float x, float y, float z)
   {
     model.rotateAngleX = x;
@@ -168,7 +166,7 @@ public class ArtemisEarModel extends ModelBiped
 	  this.Piece1.rotateAngleY = p_78087_4_ / (180F / (float)Math.PI);
       this.Piece1.rotateAngleX = p_78087_5_ / (180F / (float)Math.PI);
   }
-  
+
 
 
 }

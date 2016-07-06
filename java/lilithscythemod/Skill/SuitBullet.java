@@ -16,8 +16,9 @@ import net.minecraft.world.World;
 public class SuitBullet extends Skill{
 	private static final int duration = 20;
 	private static final int powerLevel = 10;
+	Minecraft lmc = Minecraft.getMinecraft();
 	@Override
-	public int getCoolTime(){
+	public float getCoolTime(){
 		return 20;
 	}
 	@Override
@@ -35,21 +36,20 @@ public class SuitBullet extends Skill{
 	@Override
 	public void invocationSkill(World world,EntityLivingBase attaker){
 
-		   Minecraft lmc = Minecraft.getMinecraft();
+		PotionEffectManager.applyEffect(attaker, ModCore.MODID,"SuitBullet", duration, powerLevel);
            // バフ判定
-            EntityLiving targetEntity =null;
+             EntityLiving targetEntity =null;
 	         AxisAlignedBB var19 = attaker.boundingBox.expand(10.0D, 4.0D, 10.0D);
              Iterator var20 = attaker.worldObj.getEntitiesWithinAABB(EntityLiving.class, var19).iterator();
 
              while(var20.hasNext()){
-	                  targetEntity = (EntityLiving) var20.next();
+	             targetEntity = (EntityLiving) var20.next();
                  if ((Entity)targetEntity instanceof EntityMob) continue;
                  if(((Entity)targetEntity instanceof IBossDisplayData))continue;
                  // 射程距離の判定、MOBの大きさを考慮
                  double lln = 10.0D + (double)targetEntity.width;
                  lln *= lln;
                  	if (attaker.getDistanceSqToEntity(targetEntity)<=lln) {
-
                  		PotionEffectManager.applyEffect(targetEntity, ModCore.MODID,"SuitBullet", duration, powerLevel);
                  	}
 	        }

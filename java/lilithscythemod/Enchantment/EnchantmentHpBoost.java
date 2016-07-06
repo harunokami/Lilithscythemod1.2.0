@@ -7,6 +7,7 @@ public class EnchantmentHpBoost extends Enchantment{
 
 	public EnchantmentHpBoost(int id, int weight) {
 		super(id, weight,EnumEnchantmentType.armor);
+		this.setName("HpBoost");
 	}
 	public int getMaxLevel()
 	{

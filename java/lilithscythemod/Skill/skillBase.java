@@ -24,16 +24,9 @@ public abstract class skillBase {
 	protected float chargeTime;
 
 	public abstract String getName();
-
-	public int getCoolTime(){
-		return 0;
-	}
-	public double getGlobalCoolDown(){
-		return 0;
-	}
-	public float getChargeTime(){
-		return 0;
-	}
+	public abstract float getCoolTime();
+	public abstract double getGlobalCoolDown();
+	public abstract float getChargeTime();
 	/**スキル発動メソッド1
 	 * @param skillName:発動するスキル名
 	 * @param attaker:発動者

@@ -9,8 +9,8 @@ public enum EnumPotionEffectResourceLocation {
 	BreakProtect(    "BreakProtect"    ,new ResourceLocation(ModCore.MODTEXTUREDOMAIN,"textures/potionEffect/icon/BreakProtect.png")),
 	Erode(           "Erode"           ,new ResourceLocation(ModCore.MODTEXTUREDOMAIN,"textures/potionEffect/icon/Erode.png")),
 	Percentagedamage("Percentagedamage",new ResourceLocation(ModCore.MODTEXTUREDOMAIN,"textures/potionEffect/icon/PercentageDamage.png")),
-	MischiefPumpkin( "MischiefPumpkin" ,new ResourceLocation(ModCore.MODTEXTUREDOMAIN,"textures/potionEffect/icon/MischiefPumpkin.png"));
-	
+	MischiefPumpkin( "MischiefPumpkin" ,new ResourceLocation(ModCore.MODTEXTUREDOMAIN,"textures/potionEffect/icon/MischiefPumpkin.png")),
+	SuitBullet( 	 "SuitBullet" 	   ,new ResourceLocation(ModCore.MODTEXTUREDOMAIN,"textures/potionEffect/icon/SuitBullet.png"));
 	public final String name;
 	public final ResourceLocation Location;
 	

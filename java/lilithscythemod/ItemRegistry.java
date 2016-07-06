@@ -5,6 +5,7 @@ import java.awt.Color;
 import lilithscythemod.Armors.ArtemisEar;
 import lilithscythemod.Armors.LilithArmorWing;
 import lilithscythemod.Items.SmollHorunEgg;
+import lilithscythemod.Weapons.AliceCanon;
 import lilithscythemod.Weapons.ItemArtemisBook;
 import lilithscythemod.Weapons.ItemDarkNightSword;
 import lilithscythemod.Weapons.ItemLilithScythe;
@@ -21,21 +22,29 @@ public class ItemRegistry {
 	public static void registerItem(){
 		//リリス
 		 Lilithscythe = new ItemLilithScythe(ModCore.LilithMaterial);
+		 Lilithscythe.setUnlocalizedName("LilithScythemod:Lilithscythe").setCreativeTab(ModCore.LilithscytheTab);
 		 GameRegistry.registerItem(Lilithscythe, "Lilithscythe");
 		 Lilithplate3  = new LilithArmorWing(ModCore.LilithArmorMaterial3, 0, 1);
 		 Lilithplate3.setUnlocalizedName("LilithScythemod:Lilithplate3").setCreativeTab(ModCore.LilithscytheTab);
 		 GameRegistry.registerItem( Lilithplate3, "LilithArmorWing");
 		 //ヴィヴィ
 		 ViviRod = new ItemViviRod(ModCore.ViviMaterial);
+		 ViviRod.setUnlocalizedName("LilithScythemod:ViviRod").setCreativeTab(ModCore.LilithscytheTab);
 		 GameRegistry.registerItem(ViviRod, "ViviRod");
 		 //アルテミス
 		 ArtemisBook = new ItemArtemisBook(ModCore.ArtemisMaterial);
+		 ArtemisBook.setUnlocalizedName("LilithScythemod:ArtemisBook").setCreativeTab(ModCore.LilithscytheTab);
 		 GameRegistry.registerItem(ArtemisBook, "ArtemisBook");
 		 ArtemisEar = new ArtemisEar(ModCore.ArtemisArmorMaterial,0,0);
 		 ArtemisEar.setUnlocalizedName("LilithScythemod:ArtemisEar").setCreativeTab(ModCore.LilithscytheTab);
 		 GameRegistry.registerItem(ArtemisEar, "ArtemisEar");
+		 //アリス
+		 AliceCanon = new AliceCanon(ModCore.AliceMaterial);
+		 AliceCanon.setUnlocalizedName("LilithScythemod:AliceCanon").setCreativeTab(ModCore.LilithscytheTab);
+		 GameRegistry.registerItem(AliceCanon, "AliceCanon");
 		 //ダークナイト
 		 DarkNightSword = new ItemDarkNightSword(ModCore.DarkNightMaterial);
+		 DarkNightSword.setUnlocalizedName("DarkNightSword").setCreativeTab(ModCore.LilithscytheTab);
 		 GameRegistry.registerItem(DarkNightSword,"DarkNightSword");
 		 //コア、武具の素材追加
 		 LilithscytheCore = new Item();
@@ -71,6 +80,8 @@ public class ItemRegistry {
 	 public static LilithscytheWeapons ViviRod;
 	 public static LilithscytheWeapons DarkNightSword;
 	 public static LilithscytheWeapons ArtemisBook;
+	 public static LilithscytheWeapons AliceCanon;
+
 	 //防具
 	 public static Item Lilithplate3;
 	 public static Item ArtemisEar;

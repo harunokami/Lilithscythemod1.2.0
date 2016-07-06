@@ -9,13 +9,13 @@ import lilithscythemod.Entity.EntityAcidBreak;
 import lilithscythemod.Entity.EntityBloodCross;
 import lilithscythemod.Entity.EntityDreamyNight;
 import lilithscythemod.Entity.EntityLoveHeart;
-import lilithscythemod.Entity.EntityEffect.EntityEffect;
 import lilithscythemod.Entity.EntityEffect.EntityMagicCircle;
 import lilithscythemod.Entity.EntityMob.EntitySmallHorun;
 import lilithscythemod.Entity.EntityRenderer.EntityHorunRenderer;
 import lilithscythemod.Event.EntityCustomDataEventHook;
 import lilithscythemod.Event.HpBoostEventHook;
 import lilithscythemod.Event.KnockbackProtectionEventHook;
+import lilithscythemod.Event.LilithAttackEventHook;
 import lilithscythemod.Event.PotionEffectEventHook;
 import lilithscythemod.Potion.PotionEventHandler;
 import lilithscythemod.Skill.SkillEventHook;
@@ -86,8 +86,6 @@ public class ModCore {
 				EntityRegistry.registerModEntity(EntityDreamyNight.class,"DreamyNight",171,this,128,5,true);
 				EntityRegistry.registerModEntity(EntityBloodCross.class,"BloodCross",172,this,128,5,true);
 				EntityRegistry.registerModEntity(EntityAcidBreak.class,"AcidBreak",173,this,128,5,true);
-
-				EntityRegistry.registerModEntity(EntityEffect.class,"EntityEffect",174,this,128,5,true);
 				EntityRegistry.registerModEntity(EntityMagicCircle.class,"EntityMagicCircle",175,this,128,5,true);
 
 				//プロキシを通して、クライアントサイドのみでエンティティのモデル・レンダーの登録を行う。
@@ -121,6 +119,7 @@ public class ModCore {
 		//EntityCustomData
 		MinecraftForge.EVENT_BUS.register(new EntityCustomDataEventHook());
 		MinecraftForge.EVENT_BUS.register(new SkillEventHook());
+		MinecraftForge.EVENT_BUS.register(new LilithAttackEventHook());
 		//スキル登録
 		proxy.registerSkills();
 		//武器・防具の追加

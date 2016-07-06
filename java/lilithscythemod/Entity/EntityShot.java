@@ -73,7 +73,7 @@ public class EntityShot extends Entity implements IProjectile{
 
 
 	public EntityShot(World p_i1582_1_) {
-		super(p_i1582_1_);
+		 super(p_i1582_1_);
 		 this.renderDistanceWeight = 10.0D;
 	     this.setSize(1.0F, 1.0F);
 	}
@@ -89,19 +89,18 @@ public class EntityShot extends Entity implements IProjectile{
 	 public EntityShot(World par1World, EntityLivingBase par2EntityLivingBase){
 		 super(par1World);
 		 this.shootingEntity = par2EntityLivingBase;
-		 this.renderDistanceWeight = 10.0D;
 		 this.isAnimalHit=false;
 		 this.isMobHit=false;
 		 this.isunknownHit=false;
 		 this.isPlayerHit=false;
-		 this.yOffset = 0.0F;
 		 this.setFallSpeed(0);
 		//向き
          EntityLib.setLocation(this,par2EntityLivingBase);
+         EntityLib.setEntityPos(this, (float)shootingEntity.posX, (float)(shootingEntity.posY-shootingEntity.height), (float)shootingEntity.posZ);
+         
+         this.setPosition(shootingEntity.posX, shootingEntity.posY, shootingEntity.posZ);
+         this.setThrowableHeading(0,0,0,0,0);
        //初速度
-         EntityLib.setEntityMotion(this);
-		 this.setPosition(shootingEntity.posX, shootingEntity.posY, shootingEntity.posZ);
-		 this.setThrowableHeading(shootingEntity.motionX,shootingEntity.motionY,shootingEntity.motionZ, 0,0);
 	 }
 	/**
 	 * 敵モブがつかったりする場合の関数
@@ -212,7 +211,6 @@ public class EntityShot extends Entity implements IProjectile{
 
 
 	protected void entityInit() {
-
 	}
 
 	public void setThrowableHeading(double p_70186_1_, double p_70186_3_,
@@ -682,7 +680,6 @@ public class EntityShot extends Entity implements IProjectile{
 	    {
 	        return false;
 	    }
-
 	    @SideOnly(Side.CLIENT)
 	    public float getShadowSize()
 	    {

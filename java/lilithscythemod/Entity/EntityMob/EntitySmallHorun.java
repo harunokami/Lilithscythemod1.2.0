@@ -22,11 +22,12 @@ import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob{
-	
+public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob,AuraKingdomsMob{
+
 	private EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 60, 15.0F);
 	private EntityAIAttackOnCollide aiAttackOnCollide = new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.2D, false);
-	
+	private static int protectValue;
+
 	//コンストラクタ.ここでAIも記述する
 	public EntitySmallHorun(World p_i1595_1_) {
 		    super(p_i1595_1_);
@@ -44,11 +45,11 @@ public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob{
             {
                 this.setCombatTask();
             }
-	
+    	    protectValue=90;
 	}
 	protected void applyEntityAttributes()
     {
-		 super.applyEntityAttributes(); 
+		 super.applyEntityAttributes();
 		 this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(40.0D);
 		 this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(150.0D);
 	     this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.400000011920929D);
@@ -57,17 +58,17 @@ public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob{
 
     @Override
     public boolean isAIEnabled() { return true; }
- 
+
     @Override
     public String getLivingSound() { return "mob.spider.say"; }
- 
+
     @Override
     public String getHurtSound() { return "mob.spider.say" ; }
- 
+
     @Override
     public String getDeathSound() {  return"mob.spider.death" ; }
-	
-    
+
+
      /* このMobが動いているときの音のファイルパスを返す.
      * 引数のblockはMobの下にあるBlock.
      */
@@ -78,7 +79,7 @@ public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob{
      }
      @Override
      public EnumCreatureAttribute getCreatureAttribute() { return EnumCreatureAttribute.UNDEFINED; }
-  
+
      @Override
      public Item getDropItem() { return Items.diamond_hoe; }
 
@@ -87,12 +88,16 @@ public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob{
      }
      public int getTotalArmorValue()
      {
-         return 10;
+         return 24;
      }
+ 	@Override
+ 	public int getDamegeProtectionValue() {
+ 		return protectValue;
+ 	}
      public void onLivingUpdate()
      {
     	super.onLivingUpdate();
-    	
+
     	/*if(this.ticksExisted%20==0){
     		SkillManager.applyEffect(this, ModCore.MODID, "TestSkill");
     	}*/
@@ -106,18 +111,16 @@ public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob{
              this.tasks.addTask(4, this.aiAttackOnCollide);
      }
 
-	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_,
-			float p_82196_2_) {
-		float accelerationspeed =(float)(14 - this.worldObj.difficultySetting.getDifficultyId() * 4); 
+	public void attackEntityWithRangedAttack(EntityLivingBase p_82196_1_,float p_82196_2_) {
+		float accelerationspeed =(float)(14 - this.worldObj.difficultySetting.getDifficultyId() * 4);
 		EntityAcidBreak entity = new EntityAcidBreak(worldObj,this,p_82196_1_,1.6F,accelerationspeed,1F);
 	    this.worldObj.spawnEntityInWorld(entity);
 
 	}
-	
+
 	   protected void entityInit()
 	    {
 	        super.entityInit();
-	        this.dataWatcher.addObject(13, new Byte((byte)0));
 	    }
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
@@ -135,6 +138,5 @@ public class EntitySmallHorun extends EntitySpider  implements IRangedAttackMob{
     {
         super.writeEntityToNBT(p_70014_1_);
     }
-
 
 }

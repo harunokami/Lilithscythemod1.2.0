@@ -86,6 +86,7 @@ public class PotionEffectManager {
 		public static void removePotionAttributeModifier(EntityLivingBase target, String unlocalizatedName){
 			//Lilith
 			if(target!=null){
+				if(target.getEntityAttribute(SharedMonsterAttributes.attackDamage)==null)return;
 				if(unlocalizatedName.equals(ModCore.MODID +":"+"MischiefPumpkin")){
 					if(target.getEntityAttribute(SharedMonsterAttributes.attackDamage).getModifier(ModCore.mischiefPumpkinUUID)!=null)
 					{

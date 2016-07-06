@@ -5,9 +5,10 @@ import lilithscythemod.Entity.EntityShot;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityMagicCircle extends EntityShot{
 
@@ -17,22 +18,22 @@ public class EntityMagicCircle extends EntityShot{
 	 public float s;
 	 public float Circlerotation;
 	 public float CircleMaxExpansionTime = 20;
-	 public EntityLivingBase master;
-	 
+
 	 private final int RangeDatawacherNumber = 22;
 	 private final int CircleRotationNumber  = 21;
 //Construct
 	public EntityMagicCircle(World par1World){
 		super(par1World);
+		this.setSize(5f,5f);
 	}
 	public EntityMagicCircle(World par1World,EntityLivingBase par2EntityLivingBase, float range, float rotationSpeed) {
 		super(par1World, par2EntityLivingBase);
 		this.r = 0;
-		this.master= par2EntityLivingBase;
 		this.MaxRange =range;
 		this.s = rotationSpeed;
 		this.setMasterName(par2EntityLivingBase.getCommandSenderName());
 		this.Circlerotation=par2EntityLivingBase.rotationYaw;
+		this.setSize(range,range);
 
 	}
 
@@ -43,41 +44,39 @@ public class EntityMagicCircle extends EntityShot{
 		this.dataWatcher.addObject(CircleRotationNumber, Float.valueOf(0F));
 		this.dataWatcher.addObject(RangeDatawacherNumber, Float.valueOf(0F));
 	}
+	@Override
+	@SideOnly(Side.CLIENT)
+    public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9){}
+
 	/** 毎tick呼ばれる処理 */
 	@Override
     public void onUpdate()
     {
-    	super.onUpdate();
+		super.onUpdate();
 		if(!this.worldObj.isRemote){
 			setCircleExpansionRange(CircleMaxExpansionTime);
 			setCircleRotation(this.s);
-			this.setPosition(getMaster().posX, getMaster().posY, getMaster().posZ);
+		}else{
+			if(getMaster()!=null)this.setPosition(getMaster().posX,getMaster().posY-getMaster().height,getMaster().posZ);
 		}
-    }
+	}
 	//消滅プロセス
+	@Override
 	protected void deadProcess()
     {
-		if(!this.worldObj.isRemote && this.getMaster() == null)
-		{
-			this.setDead();
-		}else if(this.getMaster() instanceof EntityPlayer){
-    		if( !((EntityPlayer) this.getMaster()).isUsingItem()){
-    			this.setDead();
-    		}
-    		if(this.getMaster().isDead)this.setDead();
+		if(this.getMaster()==null){
+			if(!this.worldObj.isRemote)this.setDead();
+		}else if(this.getMaster().isDead){
+    		this.setDead();
+    	}else if(!this.getMaster().isUsingItem()){
+    		this.setDead();
     	}
     }
 	//SAVE&LOAD
 	@Override
     protected void readEntityFromNBT(NBTTagCompound p_70037_1_) {
     	super.readEntityFromNBT(p_70037_1_);
-			if(this.getMaster()!=null)
-	        {
-	            NBTTagList nbttaglist = this.getEntityData().getTagList("Pos", 6);	            
-	            this.setPosition(getMaster().posX, getMaster().posY, getMaster().posZ);
-	        }
 			   String s = p_70037_1_.getString("Master");
-
 		        if (s.length() > 0)
 		        {
 		            this.setMasterName(s);
@@ -91,9 +90,6 @@ public class EntityMagicCircle extends EntityShot{
     @Override
 	protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {
     	super.writeEntityToNBT(p_70014_1_);
-		if(this.master!=null){
-			p_70014_1_.setTag("Pos", this.newDoubleNBTList(new double[] {this.master.posX, this.master.posY + (double)this.master.ySize, this.master.posZ}));
-		}
 		 if (this.getMasterName() == null)
 	        {
 			 	p_70014_1_.setString("Master", "");
@@ -136,9 +132,9 @@ public class EntityMagicCircle extends EntityShot{
     }
     private void setCircleRotation(float rotationSpeed){
     	this.Circlerotation += rotationSpeed;
+    	if(this.Circlerotation>=360)this.Circlerotation-=1;
     	this.dataWatcher.updateObject(this.CircleRotationNumber, this.Circlerotation);
     }
-
     //EntityPenetrateFlag
     @Override
 	public boolean isPenetrateEntity(){

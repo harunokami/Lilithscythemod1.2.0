@@ -11,40 +11,39 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 public class PotionMischiefPumpkin extends Potion {
-	AttributeModifier MischiefPumpkinBuffAttackDamage =new AttributeModifier(ModCore.mischiefPumpkinUUID,"mischiefPumpkinDamage",0,0);
+	AttributeModifier MischiefPumpkinBuffAttackDamage =new AttributeModifier(ModCore.mischiefPumpkinUUID,"MischiefPumpkinBuffAttackDamage",0,0);
 	Multimap multimap;
 	private double defaultAttackDamage = 0;
 	private double preAttackDamage = 0;
 	private double Attackdamage=0;
 	public static final String PreMischiefPumpkinState ="PreMischiefPumpkinState";
-	public static final String MischiefPumpkinState ="defaultMischiefPumpkinState";
+	public static final String defaultMischiefPumpkinState ="defaultMischiefPumpkinState";
 
 	@Override
 	public String getName() {
 		return "MischiefPumpkin";
 	}
-
-	//preAttackDamage=前回までのターゲットの攻撃力
-	//defaultAttackdamage=新しく取得した攻撃力(前回に追加した場合はその値が加算されている）
-	//AttackDamage = 付加する攻撃値
+	/*powerLv1あたり、1％の攻撃力増加
+	 *攻撃力を持たないEntityに対しては効果なし
+	 */
 	@Override
 	public void effect(EntityLivingBase target, int powerLevel){
 
-		//前回までの付加攻撃値を取得
 		if(EntityDataManager.activeData(target, PreMischiefPumpkinState)){
 			this.preAttackDamage=EntityDataManager.getData(target, PreMischiefPumpkinState);
 		}
-		if(target.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttribute()!=null){
+
+		if(target.getEntityAttribute(SharedMonsterAttributes.attackDamage)!=null){
 				defaultAttackDamage =Math.round(target.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
 		}
-		if(EntityDataManager.activeData(target, MischiefPumpkinState))defaultAttackDamage -= EntityDataManager.getData(target, MischiefPumpkinState);
-		//ステータス変化の条件
-		//このバフ以外の影響でステータスが変化したとき
-		//強いバフLvで上書きされたとき
-		Attackdamage = Math.round(defaultAttackDamage * (powerLevel/50));
+
+		if(EntityDataManager.activeData(target, defaultMischiefPumpkinState))defaultAttackDamage -= EntityDataManager.getData(target, defaultMischiefPumpkinState);
+
+		Attackdamage = Math.round(defaultAttackDamage * powerLevel / 100);
+
 		if(preAttackDamage != defaultAttackDamage){
-			preAttackDamage=Math.round(Attackdamage + defaultAttackDamage);
-			MischiefPumpkinBuffAttackDamage= new AttributeModifier(ModCore.mischiefPumpkinUUID,"mischiefPumpkinDamage", Attackdamage, 0);
+			preAttackDamage=Attackdamage;
+			MischiefPumpkinBuffAttackDamage= new AttributeModifier(ModCore.mischiefPumpkinUUID,"MischiefPumpkinBuffAttackDamage", Attackdamage, 0);
 			multimap=getMap();
 			this.saveAttackDamage(target, preAttackDamage, Attackdamage);
 			target.getAttributeMap().applyAttributeModifiers(multimap);
@@ -60,7 +59,7 @@ public class PotionMischiefPumpkin extends Potion {
     }
 	private void saveAttackDamage(EntityLivingBase entity,double prePar,double Par){
 		EntityDataManager.EntityCustomData(entity, PreMischiefPumpkinState, prePar);
-		EntityDataManager.EntityCustomData(entity, MischiefPumpkinState, Par);
+		EntityDataManager.EntityCustomData(entity, defaultMischiefPumpkinState, Par);
 	}
 	@Override
 	public boolean milkRemove()

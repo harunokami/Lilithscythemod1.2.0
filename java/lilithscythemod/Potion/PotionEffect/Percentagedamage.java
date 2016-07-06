@@ -1,6 +1,7 @@
 package lilithscythemod.Potion.PotionEffect;
 import lilithscythemod.Potion.Potion;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.DamageSource;
 
 public class Percentagedamage extends Potion{
 	@Override
@@ -16,11 +17,11 @@ public class Percentagedamage extends Potion{
 	{
 		 float damage=0;
 		 float setHp=0;
-		 
 		damage =target.getMaxHealth()*(powerLevel*0.01F);
 		setHp = target.getHealth()-damage;
 		if(setHp<0)setHp=0;
 		target.setHealth(setHp);
+		if(target.getHealth()==0)target.onDeath(DamageSource.wither);
 		target.worldObj.spawnParticle("smoke", target.posX, target.posY + 0.5D, target.posZ, 0.0D, 0.0D, 0.0D);
 	}
 	@Override

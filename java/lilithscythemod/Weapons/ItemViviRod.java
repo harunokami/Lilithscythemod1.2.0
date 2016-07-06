@@ -1,7 +1,6 @@
 package lilithscythemod.Weapons;
 
 import lilithscythemod.EffectSoundPlay;
-import lilithscythemod.ModCore;
 import lilithscythemod.Entity.EntityLoveHeart;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -14,18 +13,26 @@ import com.google.common.collect.Multimap;
 
 public class ItemViviRod extends LilithscytheWeapons
 {
-	//public static int entityIdLoveHeart = 170;
 	 float damage;
+
+	 public ItemViviRod(net.minecraft.item.Item.ToolMaterial par1)
+	 {
+	   super(par1);
+	   setTextureName("lilithscythemod:ViviRod");
+	   damage = par1.getDamageVsEntity();
+
+	 }
+
 	@Override
 	public Multimap getItemAttributeModifiers()
     {
         Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), 
+        multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(),
                         new AttributeModifier(field_111210_e, "Weapon modifier", (double)damage, 0));
         return multimap;
     }
-	
-	
+
+
 	/*
      * 右クリック使用をやめた時に呼ばれるメソッド。右クリックを継続して押していた時間をもとに、エンティティを発射する処理を行う。
      */
@@ -53,21 +60,21 @@ public class ItemViviRod extends LilithscytheWeapons
     }
 
     EntityLoveHeart bullet = new EntityLoveHeart(par2World, par3EntityPlayer, 0.8F, 0.0F, 0.0F, 0.0F, -1.0F);
-    
+
     par2World.playSoundAtEntity(par3EntityPlayer,EffectSoundPlay.Vivi1, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-    
+
     if (!par2World.isRemote)
     {
         par2World.spawnEntityInWorld(bullet);
     }
 
     }
-    
+
     public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
     	return par1ItemStack;
     }
-    
+
     /*
      * 右クリックでの使用（タメ）時間の上限。
      */
@@ -75,7 +82,7 @@ public class ItemViviRod extends LilithscytheWeapons
     {
         return 72000;
     }
-    
+
     /*
      * 右クリック時の動作のタイプ。
      * ここではbow（引き絞るタメ動作）にしているが、ガードや飲食などに変えることも出来、呼ばれるメソッドが異なる。
@@ -84,26 +91,15 @@ public class ItemViviRod extends LilithscytheWeapons
     {
         return EnumAction.bow;
     }
-    
+
     /*
      * 右クリックでの使用時に呼ばれるメソッド。
      */
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
     	par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
- 
+
         return par1ItemStack;
     }
-    
-	 public ItemViviRod(net.minecraft.item.Item.ToolMaterial par1)
-	 {
-	        super(par1);
-	        //ヴィヴィロッドの登録 
-	        setUnlocalizedName("ViviRod")
-	       .setTextureName("lilithscythemod:ViviRod")
-	        .setCreativeTab(ModCore.LilithscytheTab);
-	        damage = par1.getDamageVsEntity();
-
-   }
 
 }

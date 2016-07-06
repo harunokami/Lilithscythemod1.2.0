@@ -1,13 +1,22 @@
 package lilithscythemod.Entity;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import lilithscythemod.lilithMath;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 
 public class EntityLib {
 
@@ -142,7 +151,59 @@ public static void updatePos(Entity entity,double addX,double addY, double addZ)
 	entity.posY += addY;
 	entity.posZ += addZ;
 }
+/**
+ *
+ * @param world :SearchWorld
+ * @param attacker:AttackEntity
+ * @param HeightRange:Height
+ * @param Range:EntityRange
+ * @param LeftRange
+ * @param RightRange
+ * @return Entity<List>
+ */
+public static List<EntityLiving> getSearchEntity(World world,EntityLivingBase attacker,int HeightRange,double Range,float LeftRange,float RightRange){
+	Minecraft lmc = Minecraft.getMinecraft();
+	  EntityLiving targetEntity=null;
+	  List<EntityLiving> entityList = new ArrayList();
+    if (!world.isRemote)
+    {
+   		 // 攻撃判定
+   		 Entity lentity = null;
+   			 if (lmc != null && lmc.objectMouseOver != null) {
+   				 lentity = lmc.objectMouseOver.entityHit;
+   			 }
+   			 AxisAlignedBB var19 = attacker.boundingBox.expand(Range, HeightRange, Range);
+   			 Iterator var20 = attacker.worldObj.getEntitiesWithinAABB(EntityLiving.class, var19).iterator();
 
+   			 while(var20.hasNext()){
+   				 targetEntity = (EntityLiving) var20.next();
+   				 if ((Entity)targetEntity instanceof EntityPlayer) continue;
+   				 if(!((Entity)targetEntity instanceof IMob)) continue;
+   				 // 射程距離の判定、MOBの大きさを考慮
+   				 double lln = Range + (double)targetEntity.width;
+   				 lln *= lln;
+
+   				 if (attacker.getDistanceSqToEntity(targetEntity)<=lln) {
+   					 	// 範囲攻撃の対象
+   					 double lvx = targetEntity.posX - attacker.posX;
+   					 double lvz = attacker.posZ - targetEntity.posZ;
+   					 float lyaw = (float)Math.toDegrees(Math.atan2(lvx, lvz));
+   					 float lf = attacker.rotationYaw - lyaw;
+   					 for (;lf > 360F; lf -= 360);
+   					 for (;lf < 0F; lf += 360);
+   					 float left=0;
+   					 float right=0;
+   					 if(LeftRange>0&&RightRange>0)left=180F + LeftRange; right = 180F - RightRange;
+
+   					 if (lf > right && lf < left) {
+   						entityList.add(targetEntity);
+   					 }
+
+   				 }
+               }
+  }
+	return entityList;
+}
 
 
 

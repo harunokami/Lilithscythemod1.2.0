@@ -19,7 +19,7 @@ import net.minecraftforge.common.ISpecialArmor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class LilithArmorWing extends ItemArmor implements ISpecialArmor{
+public class LilithArmorWing extends ItemArmor implements ISpecialArmor,AuraKingdomArmor{
 
     private ArmorProperties armorProperty = new ArmorProperties(0, 0, 0);
 
@@ -100,6 +100,11 @@ public class LilithArmorWing extends ItemArmor implements ISpecialArmor{
 	   public void damageArmor(EntityLivingBase entity, ItemStack stack,
 			DamageSource source, int damage, int slot) {
 	   }
+
+	@Override
+	public int getProtectionDamageLv() {
+		return 10;
+	}
 
 }
 

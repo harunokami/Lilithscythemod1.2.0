@@ -1,6 +1,5 @@
 package lilithscythemod.Skill;
 
-import lilithscythemod.ModCore;
 import lilithscythemod.Entity.EntityCustomState;
 import lilithscythemod.Entity.EntityCustomStateManager;
 import lilithscythemod.Entity.EntityDataManager;
@@ -33,7 +32,7 @@ public class SkillEventHook {
 			if(SkillNBTData.get(target)!=null && list.getNBTList().tagCount() > 0)
 			{
 				//登録されている各スキルのCT処理
-				if(target.ticksExisted%20==0){
+				if(target.ticksExisted%2==0){
 
 					for (int x = 0; x < skills.tagCount(); x++)
 					{
@@ -41,7 +40,6 @@ public class SkillEventHook {
 						chargeTimeProcess(target,list,x);
 						//ステートによる実行処理
 						stateProcess(target,list,x);
-						ModCore.TestState=list.getNBTByte(x,list.Tag_State);
 					}
 				}
 				//GCDの処理
@@ -60,7 +58,7 @@ public class SkillEventHook {
 		if(list.getNBTByte(x,list.Tag_State)==list.State_Chant){
 			float par1 = list.getNBTFloat(x, SkillNBTData.Tag_ChargeTime);
 			if(par1>0){
-				list.setNBTFloat(x, SkillNBTData.Tag_ChargeTime, par1-1.0F);
+				list.setNBTFloat(x, SkillNBTData.Tag_ChargeTime, par1-0.1F);
 			}else{
 				list.setNBTByte(x, SkillNBTData.Tag_State, SkillNBTData.State_ChantEnd);
 			}
@@ -84,9 +82,9 @@ public class SkillEventHook {
 
 		//ステートがクールダウン中なら実行
 		if(list.getNBTByte(index,list.Tag_State) ==list.State_CoolDown){
-			int par =list.getNBTInt(index, list.Tag_CoolTime);
+			float par =list.getNBTFloat(index, list.Tag_CoolTime);
 			if(par>0){
-				list.setNBTInt(index, list.Tag_CoolTime, par-1);
+				list.setNBTFloat(index, list.Tag_CoolTime, par-0.1F);
 			}else{
 				list.setNBTByte(index,list.Tag_State, list.State_Ready);
 			}

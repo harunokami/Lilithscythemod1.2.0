@@ -2,7 +2,6 @@ package lilithscythemod.Weapons;
 
 import java.util.Iterator;
 
-import lilithscythemod.ModCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -19,15 +18,13 @@ public class ItemArtemisBook extends LilithscytheWeapons {
 	//初期設定
 	 public ItemArtemisBook(net.minecraft.item.Item.ToolMaterial par1){
 		 super(par1);
-		 setUnlocalizedName("ArtemisBook")
-		 .setTextureName("lilithscythemod:ArtemisBook")
-	     .setCreativeTab(ModCore.LilithscytheTab);
+		 setTextureName("lilithscythemod:ArtemisBook");
 	     this.setMaxDamage(-1);//壊れない
 	 }
 	 //右クリックを溜めて離したときの処理
 	    public void onPlayerStoppedUsing(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer, int par4)
 	    {
-	    	
+
 	    	//par4は右クリックの押下時間。
 		    int j = this.getMaxItemUseDuration(par1ItemStack) - par4;
 		    //溜めた時間
@@ -72,7 +69,7 @@ public class ItemArtemisBook extends LilithscytheWeapons {
 			int ResistanceLv = 5;
 			int Absorptionlv = 5;
 			//PotionEffectの設定
-			PotionEffect Registance =new PotionEffect(Potion.resistance.id , duration, ResistanceLv); 
+			PotionEffect Registance =new PotionEffect(Potion.resistance.id , duration, ResistanceLv);
 			PotionEffect Absorption = new PotionEffect(Potion.field_76444_x.id,duration,Absorptionlv);
 			//PotionEffect(Effect)がEntityPlayerに付与されているかの判定
 			boolean isResistance = par3EntityPlayer.isPotionActive(Registance.getPotionID());
@@ -82,10 +79,10 @@ public class ItemArtemisBook extends LilithscytheWeapons {
 			{
 				//Itemを振る動作
 				par3EntityPlayer.swingItem();
-	 
+
 				//ダメージ値を【1】増やす
 				par1ItemStack.damageItem(1, par3EntityPlayer);
-	 
+
 				//PotionEffect(Effect)をEntityPlayerに付与
 				par3EntityPlayer.addPotionEffect(Registance);
 				par3EntityPlayer.addPotionEffect(Absorption);
@@ -99,9 +96,9 @@ public class ItemArtemisBook extends LilithscytheWeapons {
 	              }
 		           AxisAlignedBB var19 = par3EntityPlayer.boundingBox.expand(10.0D, 4.0D, 10.0D);
 	               Iterator var20 = par3EntityPlayer.worldObj.getEntitiesWithinAABB(EntityLiving.class, var19).iterator();
-	               
+
 	               while(var20.hasNext()){
-		                  targetEntity = (EntityLiving) var20.next();  
+		                  targetEntity = (EntityLiving) var20.next();
 	                   if ((Entity)targetEntity instanceof IMob) continue;
 	                   // 射程距離の判定、MOBの大きさを考慮
 	                   double lln = 10.0D + (double)targetEntity.width;

@@ -43,29 +43,29 @@ public class SkillManager {
 			if (skillList.containsKey(unlocalizatedName))
 			{
 				int index = activeSkillIndex(target,unlocalizatedName);
-				
+
 						//ステートが開始可能状態ならセット処理を行う
 						if(list.getNBTByte(index,SkillNBTData.Tag_State) == SkillNBTData.State_Ready||list.getNBTByte(index,SkillNBTData.Tag_State) == 0x00){
 							//スキルデータがすでにEntityにセットされているなら更新、ないなら新規で追加する
-							int 	ct=getSkillList().get(unlocalizatedName).getCoolTime();
+							float 	ct=getSkillList().get(unlocalizatedName).getCoolTime();
 							float 	charge=getSkillList().get(unlocalizatedName).getChargeTime();
 							byte 	state =SkillNBTData.State_Chant;
 							if(index!=-1){
-									list.setNBTInt(index, SkillNBTData.Tag_CoolTime, ct);
+									list.setNBTFloat(index, SkillNBTData.Tag_CoolTime, ct);
 									list.setNBTByte(index, SkillNBTData.Tag_State, state);
 									list.setNBTFloat(index, SkillNBTData.Tag_ChargeTime, charge);
 									EntityDataManager.EntityCustomData(target, SkillNBTData.Tag_GlobalCoolDown, getGCDTime(unlocalizatedName));
 									EntityCustomStateManager.EntityCustomState(target, SkillNBTData.Tag_State, EntityCustomState.State_GCDFree);
-							}else{	
+							}else{
 									list.addSkillData(unlocalizatedName, ct, charge,state);
 									EntityDataManager.EntityCustomData(target, SkillNBTData.Tag_GlobalCoolDown,getGCDTime(unlocalizatedName));
 									EntityCustomStateManager.EntityCustomState(target, SkillNBTData.Tag_State,EntityCustomState.State_GCDFree);
 							}
 
 						}
-						
+
 			}else{
-				
+
 				FMLLog.log(Level.ERROR, "%s in %s does not exist!", SkillName, modID);
 			}
 

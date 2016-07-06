@@ -22,16 +22,14 @@ public class LilithMagicCircleRenderer extends Render{
 		  this.shadowSize = 0.0F;
 	  }
 	public void renderCircle(EntityMagicCircle p_76986_1_, double p_76986_2_,double p_76986_4_, double p_76986_6_, float p_76986_8_,float p_76986_9_) {
-		this.bindTexture(tex);
 		GL11.glPushMatrix();
-    	GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_+0.15F, (float)p_76986_6_);
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        float f2 = 1;
-        GL11.glScalef(f2, f2, f2);
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+    	GL11.glTranslatef((float)p_76986_2_, (float)p_76986_4_, (float)p_76986_6_);
+    	GL11.glTranslatef(0.0F, 0.2F, 0.0F);
+    	this.bindTexture(tex);
         RenderLilithscytheEffect.render(RenderLilithscytheEffect.RenderType_Circle, p_76986_1_.getCircleRange(), 0, p_76986_1_.getCircleRotation(), false, 0, 0);
         this.bindTexture(RenderLilithscytheEffect.MagicLilithFog);
-        RenderLilithscytheEffect.render(RenderLilithscytheEffect.RenderType_Cylinder, p_76986_1_.getCircleRange(), 0, p_76986_1_.getCircleRotation(), false, 2, 0);
-       	GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        RenderLilithscytheEffect.render(RenderLilithscytheEffect.RenderType_Cylinder, p_76986_1_.getCircleRange(), 0, p_76986_1_.getCircleRotation(), true, 1, 0);
         GL11.glPopMatrix();
 	}
 	@Override

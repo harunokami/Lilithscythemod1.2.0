@@ -19,7 +19,7 @@ import net.minecraftforge.common.ISpecialArmor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ArtemisEar extends ItemArmor implements ISpecialArmor{
+public class ArtemisEar extends ItemArmor implements ISpecialArmor,AuraKingdomArmor{
 
 	 private ArmorProperties armorProperty = new ArmorProperties(0, 0, 0);
 	 private Boolean HpCheak =false;
@@ -27,8 +27,9 @@ public class ArtemisEar extends ItemArmor implements ISpecialArmor{
 	public ArtemisEar(ArmorMaterial p_i45325_1_, int p_i45325_2_,int p_i45325_3_)
 	{
 		 super(p_i45325_1_, p_i45325_2_, p_i45325_3_);
+		 setTextureName("lilithscythemod:ArtemisEarIcon");
 		 this.setMaxDamage(-1);//壊れない
-	}
+		 }
 
 	@Override
 	//エンチャント付与
@@ -98,5 +99,9 @@ public class ArtemisEar extends ItemArmor implements ISpecialArmor{
 			 DamageSource source, int damage, int slot) {
 
 	 }
+	 @Override
+	public int getProtectionDamageLv(){
+		return 20;
+	}
 
 }

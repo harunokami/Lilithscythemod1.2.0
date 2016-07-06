@@ -29,15 +29,17 @@ public class PotionSuitBullet extends Potion{
  */
 	@Override
 	public void effect(EntityLivingBase target, int powerLevel) {
+
 		if(EntityDataManager.activeData(target, PreSuitBulletState)){
 			this.preAttackDamage=EntityDataManager.getData(target, PreSuitBulletState);
 		}
-		if(target.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttribute()!=null){
-				defaultAttackDamage =Math.round(target.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
+
+		if(target.getEntityAttribute(SharedMonsterAttributes.attackDamage)!= null){
+			defaultAttackDamage =Math.round(target.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
 		}
 		if(EntityDataManager.activeData(target, defaultSuitBulletState))defaultAttackDamage -= EntityDataManager.getData(target, defaultSuitBulletState);
 
-		Attackdamage = defaultAttackDamage * powerLevel/50;
+		Attackdamage = Math.round(defaultAttackDamage * powerLevel/100);
 
 		if(preAttackDamage!=defaultAttackDamage){
 			preAttackDamage=Attackdamage;
